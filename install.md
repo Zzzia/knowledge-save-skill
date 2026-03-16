@@ -19,13 +19,15 @@
 
 ### 2. AI 客户端
 
-目前已适配以下客户端（其他客户端可参考"通用方式"）：
+目前已适配以下客户端（其他客户端可参考"其他客户端"部分）：
 
-| 客户端 | Skill 支持 | Command 支持 |
+| 客户端 | Skill 目录 | Command 支持 |
 |--------|-----------|-------------|
-| OpenCode | ✅ | ✅ |
-| Claude Code | ✅ | ✅ |
-| 其他（Gemini、Codex、Cursor 等） | ⚠️ 手动配置 | ❌ |
+| OpenCode | `.opencode/skills/` | ✅ `.opencode/commands/` |
+| Claude Code | `.claude/skills/` | ✅（作为 skill 安装） |
+| Gemini CLI | `.gemini/skills/` | ✅ `.gemini/commands/` |
+| Codex (OpenAI) | `.codex/skills/` | ✅ `.codex/commands/` |
+| Cursor | `.cursor/rules/` | ✅（作为 rule 安装） |
 
 ---
 
@@ -62,7 +64,31 @@ sed -i '' 's|{{VAULT_PATH}}|/home/yourname/obsidian/my-notes|g' SKILL.md
 
 > **注意**: 路径必须是绝对路径，不要使用 `~` 或相对路径。
 
-### Step 3: 按客户端安装
+### Step 3: 初始化 Obsidian 目录结构
+
+创建知识库所需的三层目录：
+
+```bash
+# 将下面的路径替换为你的实际 Obsidian 目录路径
+OBSIDIAN_DIR="/home/yourname/obsidian/my-notes"
+
+mkdir -p "$OBSIDIAN_DIR/daily"
+mkdir -p "$OBSIDIAN_DIR/topic"
+mkdir -p "$OBSIDIAN_DIR/note"
+```
+
+配置 Obsidian 的 Daily Notes 插件指向 `daily/` 目录：
+
+```bash
+# 如果 .obsidian 目录存在（即已用 Obsidian 打开过该目录），配置 daily-notes
+if [ -d "$OBSIDIAN_DIR/.obsidian" ]; then
+  echo '{"folder": "daily"}' > "$OBSIDIAN_DIR/.obsidian/daily-notes.json"
+fi
+```
+
+> 如果还没用 Obsidian 打开过该目录，先用 Obsidian 打开一次，再执行上面的配置命令。
+
+### Step 4: 按客户端安装
 
 ---
 
@@ -134,33 +160,98 @@ cp command/save.md .claude/skills/save/SKILL.md
 
 ---
 
-#### 通用方式（Gemini、Codex、Cursor 等）
+#### Gemini CLI
 
-对于不直接支持 skill 机制的 AI 客户端，你可以将 `SKILL.md` 的内容添加到客户端的 **System Prompt** 或 **Custom Instructions** 中。
+Gemini CLI 使用 `GEMINI.md` 和 `.gemini/` 目录。
 
-**方法 1: 全文添加**
+**安装 Skill（全局）**:
 
-将 SKILL.md 的完整内容复制到客户端的 system prompt / custom instruction 配置中。
-
-**方法 2: 规则文件引用**
-
-部分客户端支持自定义规则文件（如 Cursor 的 `.cursorrules`）：
-
-```
-# .cursorrules 或对应的规则文件
-# 在此处粘贴 SKILL.md 的完整内容
+```bash
+mkdir -p ~/.gemini/skills/knowledge-save
+cp SKILL.md ~/.gemini/skills/knowledge-save/SKILL.md
 ```
 
-**方法 3: 会话中手动加载**
+**安装 Skill（项目级）**:
 
-在对话开始时告诉 AI：
-
-```
-请阅读并遵循以下知识沉淀规范：
-[粘贴 SKILL.md 内容]
+```bash
+mkdir -p .gemini/skills/knowledge-save
+cp SKILL.md .gemini/skills/knowledge-save/SKILL.md
 ```
 
-> **注意**: 通用方式不支持 `/save` 命令，需要手动告诉 AI "请将本次会话的关键内容沉淀到我的知识库"。
+**安装 Command**:
+
+```bash
+# 全局
+mkdir -p ~/.gemini/commands
+cp command/save.md ~/.gemini/commands/save.md
+
+# 或项目级
+mkdir -p .gemini/commands
+cp command/save.md .gemini/commands/save.md
+```
+
+安装完成后，在 Gemini CLI 中输入 `/save` 即可使用。
+
+---
+
+#### Codex (OpenAI)
+
+Codex 使用 `.codex/` 目录。
+
+**安装 Skill（全局）**:
+
+```bash
+mkdir -p ~/.codex/skills/knowledge-save
+cp SKILL.md ~/.codex/skills/knowledge-save/SKILL.md
+```
+
+**安装 Skill（项目级）**:
+
+```bash
+mkdir -p .codex/skills/knowledge-save
+cp SKILL.md .codex/skills/knowledge-save/SKILL.md
+```
+
+**安装 Command**:
+
+```bash
+# 全局
+mkdir -p ~/.codex/commands
+cp command/save.md ~/.codex/commands/save.md
+
+# 或项目级
+mkdir -p .codex/commands
+cp command/save.md .codex/commands/save.md
+```
+
+安装完成后，在 Codex 中输入 `/save` 即可使用。
+
+---
+
+#### Cursor
+
+Cursor 使用 `.cursor/rules/` 目录。
+
+**安装 Skill（项目级）**:
+
+```bash
+mkdir -p .cursor/rules
+cp SKILL.md .cursor/rules/knowledge-save.md
+```
+
+**安装 Command**:
+
+```bash
+cp command/save.md .cursor/rules/save.md
+```
+
+> Cursor 的规则文件在打开对应项目时自动加载。
+
+---
+
+#### 其他客户端
+
+对于以上未列出的 AI 客户端，可以将 `SKILL.md` 的内容添加到客户端的 **System Prompt** 或 **Custom Instructions** 中。具体方式取决于客户端支持的配置机制。
 
 ---
 

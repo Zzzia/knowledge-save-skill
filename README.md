@@ -68,7 +68,7 @@ obsidian-dir/
 我的 Obsidian 目录路径是：<你的 Obsidian 绝对路径>
 ```
 
-AI 会自动完成下载、路径替换、目录创建、Obsidian 配置和文件安装。
+AI 会自动完成下载、路径替换、Obsidian 配置和文件安装。
 
 > 详细的手动安装步骤和各平台差异说明见 [install.md](install.md)。
 

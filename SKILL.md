@@ -190,10 +190,6 @@ status: ongoing
 
 ### 步骤 2：扫描现有知识库结构
 
-- 检查 `{{VAULT_PATH}}/daily/`、`{{VAULT_PATH}}/topic/`、`{{VAULT_PATH}}/note/` 三个目录是否存在
-  - 如果不存在，自动创建（`mkdir -p`）
-- 检查 `{{VAULT_PATH}}/.obsidian/daily-notes.json` 是否存在且 `folder` 字段为 `"daily"`
-  - 如果文件不存在或 `folder` 字段不是 `"daily"`，写入 `{"folder": "daily"}` 以确保 Obsidian 的 Daily Notes 插件指向正确目录
 - 读取 `{{VAULT_PATH}}/note/` 下所有主题目录名
 - 读取 `{{VAULT_PATH}}/topic/` 下所有 topic 文件名
 - 了解现有知识库已有哪些主题和领域
