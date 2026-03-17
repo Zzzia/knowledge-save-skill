@@ -56,7 +56,16 @@ obsidian-dir/
 - **自动归属判断** — AI 扫描现有知识库结构，自动匹配最合适的主题和子文档
 - **优先更新，避免泛滥** — 话题相近时更新已有文档，而非每次都新建
 - **关联关系自动维护** — 主题中心页、领域索引、每日索引的双向链接自动保持同步
-- **跨平台通用** — 适配 OpenCode、Claude Code 及其他 AI 客户端
+- **跨平台通用** — 适配 OpenCode、Claude Code、Gemini CLI、Codex、Cursor 等 AI 客户端
+
+## 两种使用模式
+
+| 模式 | 特点 | 适用场景 |
+|------|------|---------|
+| **Skill 模式** | 主 agent 直接执行，能访问完整会话上下文 | 所有客户端通用 |
+| **SubAgent 模式** | 独立轻量模型执行，不占主 agent 上下文，可复用 session | 支持 subagent 的客户端（如 OpenCode） |
+
+不确定选哪个？先用 Skill 模式，它适用于所有客户端。详见 [install.md](install.md)。
 
 ## 快速安装
 
@@ -91,8 +100,10 @@ AI 会自动完成下载、路径替换、Obsidian 配置和文件安装。
 | 文件 | 说明 |
 |------|------|
 | `SKILL.md` | 核心 skill 定义，包含完整的文档模板、工作流程和约束规则 |
-| `command/save.md` | `/save` 命令模板，触发知识沉淀流程 |
-| `install.md` | 详细安装指引，覆盖 OpenCode / Claude Code / 通用方式 |
+| `agent/knowledge-save.md` | SubAgent 模式的 agent 定义，包含轻量模型配置和完整操作规范 |
+| `command/save-skill.md` | Skill 模式的 `/save` 命令模板 |
+| `command/save-subagent.md` | SubAgent 模式的 `/save` 命令模板，含详细的摘要质量规范 |
+| `install.md` | 详细安装指引，覆盖 OpenCode / Claude Code / Gemini CLI / Codex / Cursor |
 
 ## License
 
