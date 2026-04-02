@@ -139,7 +139,22 @@ fi
 
 > 如果还没用 Obsidian 打开过该目录，先用 Obsidian 打开一次，再执行上面的配置命令。
 
-### Step 4: 按客户端安装
+### Step 4: 安装 obsidian-skills 依赖
+
+knowledge-save 依赖 [obsidian-skills](https://github.com/kepano/obsidian-skills)（Obsidian 官方 Agent Skills）来编写更高质量的 Obsidian 文档。安装 knowledge-save 之前，请先确保该依赖已安装到当前客户端的 skills 目录中。
+
+**检测与安装步骤**：
+
+1. 检查当前客户端的 skills 目录下是否已存在 `obsidian-skills`（包含 `obsidian-markdown`、`obsidian-bases`、`json-canvas` 等子技能）
+2. 如果不存在，将 obsidian-skills 仓库克隆到对应的 skills 目录：
+   ```bash
+   git clone https://github.com/kepano/obsidian-skills.git <客户端skills目录>/obsidian-skills
+   ```
+3. 确认 `<客户端skills目录>/obsidian-skills/skills/` 下包含 `obsidian-markdown/SKILL.md` 等文件即为安装成功
+
+> 各客户端的 skills 目录位置不同（如 OpenCode 为 `~/.config/opencode/skills/`，Claude Code 为 `~/.claude/skills/`），请根据实际客户端自行适配路径。obsidian-skills 仓库 README 中也有各客户端的安装说明可供参考。
+
+### Step 5: 按客户端安装
 
 根据你选择的模式和使用的客户端，按以下说明安装。
 
