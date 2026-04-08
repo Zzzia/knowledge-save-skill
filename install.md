@@ -130,19 +130,23 @@ cp -R runtime/knowledge-save ~/.config/opencode/skills/
 
 ## 使用方式
 
-安装完成后，直接在会话里显式调用 `knowledge-save` skill。
+安装完成并重启客户端后，你可以通过两种方式使用它。
 
-例如：
-
-```text
-请使用 knowledge-save skill，把刚才的关键结论整理进我的 Obsidian 知识库。
-```
-
-或者：
+### 方式一：显式调用 `/knowledge-save`
 
 ```text
-请使用 knowledge-save skill，重点记录这次关于缓存击穿排查的过程和最终方案。
+/knowledge-save
 ```
+
+也可以带方向指定：
+
+```text
+/knowledge-save 重点记录这次关于缓存击穿排查的过程和最终方案
+```
+
+### 方式二：在全局 `AGENTS.md` 中配置自动记录
+
+推荐把规则写进全局 `AGENTS.md`，让 AI 在出现关键进展时自动调用 `knowledge-save` 进行沉淀。
 
 ## 常见问题
 
