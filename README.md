@@ -30,7 +30,7 @@ knowledge-save 沉淀的笔记会自动形成双向链接网络，在 Graph View
 
 采用 **daily + topic + note** 三层架构（首次使用时自动创建）：
 
-```
+```text
 obsidian-dir/
 ├── daily/                          # 每日索引（时间维度入口）
 │   └── 2025-07-01.md
@@ -58,52 +58,46 @@ obsidian-dir/
 - **关联关系自动维护** — 主题中心页、领域索引、每日索引的双向链接自动保持同步
 - **跨平台通用** — 适配 OpenCode、Claude Code、Gemini CLI、Codex、Cursor 等 AI 客户端
 
-## 两种使用模式
+## 使用方式
 
-| 模式 | 特点 | 适用场景 |
-|------|------|---------|
-| **Skill 模式** | 主 agent 直接执行，能访问完整会话上下文 | 所有客户端通用 |
-| **SubAgent 模式** | 独立轻量模型执行，不占主 agent 上下文，可复用 session | 支持 subagent 的客户端（如 OpenCode） |
+本项目提供一个可直接调用的 `knowledge-save` skill，用于将 AI 会话中的关键进展整理进 Obsidian 知识库。
 
-不确定选哪个？先用 Skill 模式，它适用于所有客户端。详见 [install.md](install.md)。
+安装时使用 `runtime/knowledge-save/` 目录中的运行时文件，并同时安装 [obsidian-skills](https://github.com/kepano/obsidian-skills) 依赖。详细步骤见 [install.md](install.md)。
 
 ## 快速安装
 
 将以下提示词发送给你使用的 AI 客户端（OpenCode、Claude Code、Cursor 等任意支持 Agent 的工具均可）：
 
-```
+```text
 请阅读 https://github.com/Zzzia/knowledge-save-skill/blob/main/install.md 中的安装指引，
 将 knowledge-save skill 安装到全局配置中。
 我的 Obsidian 目录路径是：<你的 Obsidian 绝对路径>
 ```
 
-AI 会自动完成下载、路径替换、Obsidian 配置和文件安装。
+AI 会按安装文档完成下载、路径替换、Obsidian 配置和文件安装。
 
 > 详细的手动安装步骤和各平台差异说明见 [install.md](install.md)。
 
 ## 使用
 
-在任何 AI 会话有关键进展时：
+安装完成并重启客户端后，直接在会话里显式调用 `knowledge-save` skill。
 
-```
-/save
+```text
+请使用 knowledge-save skill，把刚才的关键结论整理进我的 Obsidian 知识库。
 ```
 
-或带参数指定方向：
+或带方向指定：
 
-```
-/save 今天讨论的缓存优化方案
+```text
+请使用 knowledge-save skill，重点记录这次关于缓存优化的讨论过程和最终方案。
 ```
 
 ## 文件说明
 
 | 文件 | 说明 |
 |------|------|
-| `SKILL.md` | 核心 skill 定义，包含完整的文档模板、工作流程和约束规则 |
-| `agent/knowledge-save.md` | SubAgent 模式的 agent 定义，包含轻量模型配置和完整操作规范 |
-| `command/save-skill.md` | Skill 模式的 `/save` 命令模板 |
-| `command/save-subagent.md` | SubAgent 模式的 `/save` 命令模板，含详细的摘要质量规范 |
-| `install.md` | 详细安装指引，覆盖 OpenCode / Claude Code / Gemini CLI / Codex / Cursor |
+| `runtime/knowledge-save/SKILL.md` | 核心 skill 定义，包含完整的文档模板、工作流程和约束规则 |
+| `install.md` | 详细安装指引，说明如何安装运行时 skill、配置 Vault 路径，以及接入 `obsidian-skills` 依赖 |
 
 ## License
 
